@@ -1,0 +1,644 @@
+
+    <script src="https://cdn.tiny.cloud/1/nrkw869s0t8rcalrzwsg21q5m8ss0je5gry7g6yz2rtrfh8m/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    <style>
+        .p-1 {
+            padding-right: 5px;
+            padding-top: 5px;
+        }
+    </style>
+
+    <script>
+
+        var franchiseId = "<?php echo $franchiseId;?>";
+
+        $(document).ready(function (){
+
+            get_phone(franchiseId);
+
+            $('#formSubmitImageUpload').submit(function(e){
+                e.preventDefault(); 
+
+                var inputFile = document.getElementById('image-source').value;
+
+                if (inputFile == '') {
+
+                    alert('Choose file');
+
+                    return false;
+
+                }
+
+                $.ajax({
+                    url:'<?=site_url('franchise/upload_thumbnail');?>',
+                    type:"post",
+                    data:new FormData(this),
+                    processData:false,
+                    contentType:false,
+                    cache:false,
+                    async:false,
+                    beforeSend : function() {
+                        $('#modalLoading').modal('show');
+                    },
+                    complete: function () {
+                        $('#modalLoading').modal('hide');
+                        setTimeout(function(){
+                            document.getElementById('image-source').value = null;
+
+                            alert("Upload Image Successfully");
+                        }, 1000);
+
+                    }
+                });
+            });
+
+        });
+
+        tinymce.init({
+
+            selector: "#post_content",
+            plugins: [
+               "advlist autolink lists link image charmap print preview hr anchor pagebreak media",
+               "searchreplace wordcount visualblocks visualchars code fullscreen",
+               "insertdatetime nonbreaking save table contextmenu directionality",
+               "emoticons template paste textcolor colorpicker textpattern"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image responsivefilemanager | media",
+            automatic_uploads: true,
+            image_advtab: true,
+            images_upload_url: "<?=site_url('franchise/image_upload/');?>" + franchiseId,
+            file_picker_types: 'image', 
+            paste_data_images:true,
+            relative_urls: false,
+            remove_script_host: false,
+            file_picker_callback: function(cb, value, meta) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+                input.onchange = function() {
+                    var file = this.files[0];
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function () {
+                        var id = 'post-image-' + (new Date()).getTime();
+                        var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                        var blobInfo = blobCache.create(id, file, reader.result);
+                        blobCache.add(blobInfo);
+                        cb(blobInfo.blobUri(), { title: file.name });
+                    };
+                };
+                 input.click();
+            }
+
+        });
+
+        tinymce.init({
+
+            selector: "#post_content_2",
+            plugins: [
+               "advlist autolink lists link image charmap print preview hr anchor pagebreak media",
+               "searchreplace wordcount visualblocks visualchars code fullscreen",
+               "insertdatetime nonbreaking save table contextmenu directionality",
+               "emoticons template paste textcolor colorpicker textpattern"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image responsivefilemanager | media",
+            automatic_uploads: true,
+            image_advtab: true,
+            images_upload_url: "<?=site_url('franchise/image_upload_2/');?>" + franchiseId,
+            file_picker_types: 'image', 
+            paste_data_images:true,
+            relative_urls: false,
+            remove_script_host: false,
+            file_picker_callback: function(cb, value, meta) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+                input.onchange = function() {
+                    var file = this.files[0];
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function () {
+                        var id = 'post-image-' + (new Date()).getTime();
+                        var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                        var blobInfo = blobCache.create(id, file, reader.result);
+                        blobCache.add(blobInfo);
+                        cb(blobInfo.blobUri(), { title: file.name });
+                    };
+                };
+                 input.click();
+            }
+
+        });
+
+        function previewImage() {
+            document.getElementById("image-preview").style.display = "block";
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
+ 
+            oFReader.onload = function(oFREvent) {
+                document.getElementById("image-preview").src = oFREvent.target.result;
+            };
+        };
+
+        function updateFranchise() {
+
+            var inputFranchiseText = document.getElementById('inputFranchiseText').value;
+            var inputFranchiseHits = document.getElementById('inputFranchiseHits').value;
+            var inputFranchiseStatus = document.getElementById('inputFranchiseStatus').value;
+            var inputMessageContent = document.getElementById('inputMessageContent').value;
+            var inputLinkWebsite = document.getElementById('inputLinkWebsite').value;
+
+            $.ajax({
+
+                url: "<?=site_url('franchise/update_franchise/' . $franchiseId);?>",
+                type: "post",
+                data: {
+                    inputFranchiseText : inputFranchiseText,
+                    inputFranchiseHits : inputFranchiseHits,
+                    inputFranchiseStatus : inputFranchiseStatus,
+                    inputMessageContent : inputMessageContent,
+                    inputLinkWebsite : inputLinkWebsite
+                },
+                cache: false,
+                success: function(data) {
+
+                    alert('Save Successfully');
+                    
+                }
+
+            });
+
+        };
+
+        function get_phone(id) {
+
+            $.ajax({
+                url: "<?=site_url('franchise/get_phone');?>",
+                type: "post",
+                data: {
+                    id: id
+                },
+                dataType: "json",
+                beforeSend: function () {
+                    var loading = '<div class="col-md-12 text-center"><i class="fa fa-refresh fa-spin"></i></div>';
+                    $('#get-phone').html(loading);
+                }, 
+                success: function (data) {
+                    
+                    $('#get-phone').html('');
+                    $('#table-phone').html('');
+
+                    if (data.length > 0) {
+
+                        for (i = 0; i < data.length; i++) {
+                            append_phone_db(data[i]);
+                        }
+
+                    } else {
+                        append_phone(0);
+                    }
+                }
+            });
+        }
+
+        function append_phone(param) {
+            var tablePhone = document.getElementById('table-phone');
+            var countRow = tablePhone.rows.length;
+
+			var row = tablePhone.insertRow(countRow);
+
+			var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+
+            cell1.style.width = '45%';
+            cell2.style.width = '45%';
+            cell3.style.width = '10%';
+
+            cell1.className = 'p-1';
+            cell2.className = 'p-1';
+            cell3.className = 'p-1';
+
+            cell1.innerHTML = '<input type="text" name="phone_title" class="form-control" id="phone_title_' + countRow + '" onchange="insert_phone(' + countRow + ')" placeholder="Ex: Area Jawa">';
+            cell2.innerHTML = '<input type="text" name="phone_val" class="form-control"` id="phone_val_' + countRow + '" onchange="insert_phone(' + countRow + ')" placeholder="Ex: +628123456789">';
+
+            if (param == 1) {
+			    cell3.innerHTML = '<a onclick="delete_row(this)"><i class="fa fa-trash-o"></i></a>';
+            }
+        }
+
+        function append_phone_db(data) {
+
+            var tablePhone = document.getElementById('table-phone');
+            var countRow = tablePhone.rows.length;
+
+			var row = tablePhone.insertRow(countRow);
+
+			var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+
+            cell1.style.width = '45%';
+            cell2.style.width = '45%';
+            cell3.style.width = '10%';
+
+            cell1.className = 'p-1';
+            cell2.className = 'p-1';
+            cell3.className = 'p-1';
+
+            cell1.innerHTML = '<input type="text" name="phone_title" class="form-control" value="' + data.title + '" id="phone_title_' + countRow + '" onchange="update_phone(' + countRow + ', ' + data.id + ')" placeholder="Ex: Area Jawa">';
+            cell2.innerHTML = '<input type="text" name="phone_val" class="form-control" value="' + data.phone + '" id="phone_val_' + countRow + '" onchange="update_phone(' + countRow + ', ' + data.id + ')" placeholder="Ex: +628123456789">';
+			cell3.innerHTML = '<a onclick="delete_row_db(this, ' + data.id + ')"><i class="fa fa-trash-o"></i></a>';
+        }
+
+        function delete_row(param) {
+			var i = param.parentNode.parentNode.rowIndex;
+			document.getElementById("table-phone").deleteRow(i);
+        }
+
+        function delete_row_db(param, id) {
+
+            $.ajax({
+                url: "<?=site_url('franchise/delete_phone');?>",
+                type: "post",
+                data: {
+                    id: id
+                },
+                success: function () {
+                    delete_row(param);
+                }
+            })
+        }
+
+        function update_phone(param, id) {
+
+            var val = $('#phone_val_' + param).val();
+            var title = $('#phone_title_' + param).val();
+
+            $.ajax({
+                url: "<?=site_url('franchise/update_phone');?>",
+                type: "post",
+                data: {
+                    phone: val,
+                    title: title,
+                    id: id
+                },
+                success: function () {
+                    alert('Save Successfully');
+                }
+            });
+        }
+
+        function insert_phone(param) {
+            
+            var val = $('#phone_val_' + param).val();
+            var title = $('#phone_title_' + param).val();
+
+            if (val != '' && title != '') {
+
+                $.ajax({
+                    url: "<?=site_url('franchise/insert_phone');?>",
+                    type: "post",
+                    data: {
+                        phone: val,
+                        title: title,
+                        franchise_id: franchiseId
+                    },
+                    success: function () {
+                        alert('Save Successfully');                    
+                        get_phone(franchiseId);
+                    }
+                });
+            }
+        }
+        
+  </script>
+
+   <div class="row">
+
+        <div class="col-md-12">
+
+            <a href="<?=site_url('franchise');?>" class="btn btn-default btn-sm"><i class="fa fa-arrow-left"></i> Back</a>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="row">
+
+        <div class="col-md-12"> 
+
+            <center><h2><?php echo $franchiseName;?></h2></center>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    Decsription
+
+                    <hr style="padding:0; margin:0">
+
+                </div>
+
+                <div class="col-md-8">
+        
+                    <input type="text" class="form-control" value="<?php echo $franchiseText;?>" id="inputFranchiseText" onchange="updateFranchise()">
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    Hits
+
+                    <hr style="padding:0; margin:0">
+
+                </div>
+
+                <div class="col-md-8">
+        
+                    <input type="text" class="form-control" value="<?php echo $franchiseHits;?>" id="inputFranchiseHits" onchange="updateFranchise()">
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    Status
+
+                    <hr style="padding:0; margin:0">
+
+                </div>
+
+                <div class="col-md-8">
+
+                    <select class="form-control select2" id="inputFranchiseStatus" onchange="updateFranchise()">
+
+                        <?php
+
+                        if ($franchiseStatus == 1) {
+
+                            echo '<option value="1" selected>Active</option>'; 
+                            echo '<option value="0">Not Active</option>';
+
+                        } else {
+
+                            echo '<option value="0" selected>Not Active</option>';
+                            echo '<option value="1">Active</option>'; 
+
+                        }
+
+                        ?>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+
+                <form class="form-horizontal" id="formSubmitImageUpload">
+
+                <input type="hidden" name="inputFranchiseId" value="<?php echo $franchiseId;?>">
+
+                <div class="col-md-4">
+
+                    Upload Thumbnail
+
+                    <hr style="padding:0; margin:0">
+
+                </div>
+
+                <div class="col-md-8">
+
+                    <div class="input-group">
+
+                        <input type="file" name="file" id="image-source" onchange="previewImage()" class="form-control">
+
+                        <span class="input-group-btn">
+
+                            <button type="submit" class="btn btn-primary btn-block" id="btnUpload"><i class="fa fa-upload"></i> Upload</button>
+
+                        </span>
+
+                    </div>
+
+                    <br>
+
+                    <img style="width:350px;height:200px" id="image-preview" src="<?php if (! empty($thumbnailUrl)) { echo $thumbnailUrl . '?' . date('YmdHis'); } ?>">
+
+                </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    Message Content
+
+                    <hr style="padding:0; margin:0">
+                
+                </div>
+
+                <div class="col-md-8">
+
+                    <textarea class="form-control" rows="4" id="inputMessageContent" placeholder="Ex: Hai, ..." onchange="updateFranchise()"><?=$messageContent;?></textarea>
+
+                    <p>Gunakan [franchise] untuk menyisipkan nama franchise di pesan whatsapp</p>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    Phone
+
+                    <hr style="padding:0; margin:0">
+                
+                </div>
+
+                <div class="col-md-8">
+                    
+                    <button class="btn btn-primary btn-sm" onclick="append_phone(1)">Add More</button>
+                    <div id="get-phone"></div>
+                    <table id="table-phone"></table>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                        
+                    Link Website
+
+                    <hr style="padding:0; margin:0">
+
+                </div>
+
+                <div class="col-md-8">
+                        
+                    <input type="text" class="form-control" id="inputLinkWebsite" onchange="updateFranchise()" value="<?=$linkWebsite;?>">
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+
+        <div class="col-md-6">                
+
+            <div class="row">
+                
+                <div class="col-md-12">
+
+                    Dunia Franchise Content
+                    
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+
+                <form class="form-horizontal" action="<?=site_url('franchise/save_content/' . $franchiseId);?>" method="post" enctype="multipart/form-data">
+
+                    <div class="col-md-12">
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                
+                                <textarea rows="25" id="post_content" name="post_content" class="form-control"><?php if ($mode == 'edit') { echo $franchiseDescription; } ;?></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <button type="submit" class="btn btn-primary btn-block btn-cm">
+                                    <i class="fa fa-floppy-o"></i> Save
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </form>
+                
+            </div>
+
+        </div>
+
+        <div class="col-md-6">    
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    Website Content
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+
+                <form class="form-horizontal" action="<?=site_url('franchise/save_content_2/' . $franchiseId);?>" method="post" enctype="multipart/form-data">
+
+                    <div class="col-md-12">
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                
+                                <textarea rows="25" id="post_content_2" name="post_content_2" class="form-control"><?php if ($mode == 'edit') { echo $linkContent; } ;?></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <button type="submit" class="btn btn-primary btn-block btn-cm">
+                                    <i class="fa fa-floppy-o"></i> Save
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </form>
+                
+            </div>
+
+        </div>
+
+    </div>
+    
+<!--
+    This is a content
+    End of file index.php
+    Location: ./application/views/webadmin/content/franchise/add_content.php
+-->

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title><?php echo $titlePageLeft . ' | ' . $titlePageRight;?></title>
+
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <meta name="Keywords" content="dunia franchise, franchise murah, waralaba murah, franchise minuman, franchise coklat, franchise indonesia, waralaba indonesia, waralaba dalam negeri, waralaba, waralaba minuman, bisnis waralaba, franchise minuman coklat, info franchise waralaba, kios usaha, waralaba terlaris, waralaba populer, franchise, franchise terlaris, franchise populer, franchise coklat, waralabaku" />
+    <meta name="title" content="" />
+    <meta name="Description" content="Kumpulan franchise / waralaba minuman dan makanan dengan modal kecil dibawah 5 juta." />
+    <meta name="language" content="id" />
+    <meta name="organization" content="Dunia Franchise" />
+    <meta name="copyright" content="Dunia Franchise" />
+    <meta name="audience" content="All People" />
+    <meta name="classification" content="Dunia Franchise" />
+    <meta name="rating" content="general" />
+    <meta name="page-topic" content="" />
+    <meta name="robots" content="index,follow" />
+    <meta name="googlebot" content="index,follow,snipet" />
+    <meta name="revisit-after" content="1 days" />
+    <meta name="mssmarttagspreventparsing" content="true" />
+    <meta property="og:title" content="Waralaba minuman dan makanan murah."/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:url" content="https://www.duniafranchise.com/"/>
+    <meta property="og:site_name" content="Dunia Franchise" />
+    <meta property="og:description" content="Kumpulan franchise / waralaba minuman dan makanan dengan modal kecil dibawah 5 juta." />
+
+    <!-- START STYLES -->
+    
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="<?=base_url();?>assets/bootstrap/css/bootstrap.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="<?=base_url();?>assets/plugins/font-awesome/css/font-awesome.min.css">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="<?=base_url();?>assets/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="<?=base_url();?>assets/dist/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="<?=base_url();?>assets/styles/background-customize.css">
+ 
+
+    <!-- END STYLES -->
+
+
+    <!-- START PLUGINS -->
+
+    <!-- jQuery 2.1.4 -->
+    <script src="<?=base_url();?>assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="<?=base_url();?>assets/bootstrap/js/bootstrap.min.js"></script>
+    <!-- App -->
+    <script src="<?=base_url();?>assets/dist/js/app.min.js"></script>
+    <!-- slimScroll -->
+    <script src="<?=base_url();?>assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+
+    <!-- END PLUGINS -->
+
+    <style>
+
+        body {
+            background: #f7f7f7;
+        }
+
+        .fixed .content-wrapper, .fixed .right-side {
+            padding-top: 60px;
+        }
+
+        .navbar {
+            background: linear-gradient(0deg, rgba(45,78,150,1) 0%, rgba(46,136,204,1) 100%);
+            border: none;
+        }
+
+        .navbar-custom-menu > ul > li > a {
+            color: #fff !important;
+        }
+
+        .content-wrapper {
+            background: #f7f7f7;
+            margin-top: 10px;
+        }
+
+        #top-banner {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 2px #888;
+        }
+
+        .img-franchise-thumbnail {
+            width: 140px;
+            height: auto;
+            border-radius: 2px 2px 0 0;
+        }
+
+        .img-article-thumbnail {
+            width: 690px;
+            height: auto;
+            border-radius: 2px 2px 0 0;
+        }
+
+        h5, ul > li > i > u > a, a > h4, a > h6 > p, h4, h6 {
+            color: #6a6a6a !important;
+        }
+
+        p {
+            text-align: justify;
+        }
+
+        .page-link {
+            margin: 0 20px 0 20px;
+            color: rgb(255,183,107);
+        }
+
+        #selectSorting {
+            font-size: 12px;
+            margin: 20px 0 20px 0;
+            padding: none;
+            border: none;
+        }
+
+        iframe {
+            width: 100%;
+            height: auto;
+        }
+
+        footer {
+            background: linear-gradient(0deg, rgba(46,136,204,1) 2%, rgba(45,78,150,1) 81%);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            /*height: 200px;*/
+            color: #fff;
+        }
+
+        .footer li a, h4 > b {
+            color: #fff;
+        }
+
+        #space-footer {
+            height: 74px;
+        }
+
+        .logo-footer {
+            margin-top: 40px;
+            width: 200px;
+            height: auto;
+        }
+
+        #franchise-detail img {
+            width: 700px;
+            height: auto;
+        }
+
+        .img-article-top-banner {
+            width: 720px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .fa {
+            color: #fff;
+        }
+
+        .navbar-nav > li.active > a > .fa, .navbar-nav > li.active > a > .menu-link {
+            color: rgb(255,183,107);
+
+            /*
+            background: #4CBCF9;
+            border-bottom: 3px solid #4CBCF9;
+            */
+        }
+
+        .navbar-custom-menu > ul > li {
+            width: 179px;
+            height: 60px;
+        }
+
+        .nav>li>a:hover, .nav>li>a:active, .nav>li>a:focus {
+            background: none;
+        }
+
+        .menu-link {
+            font-size: 12px;
+        }
+
+        .fa-home, .fa-archive, .fa-newspaper-o, .fa-info-circle-o {
+            font-size: 20px;
+        }
+
+        @media (max-width: 767px) {
+            
+            .fixed .content-wrapper, .fixed .right-side {
+                padding-top: 60px;
+            }
+
+            #top-banner {
+                width: 100%;
+                height: 120px;
+
+            }
+
+            .logo-footer {
+                margin-top: 40px;
+                width: 150px;
+                height: auto;
+            }
+
+            #franchise-detail img {
+                width: 320px;
+                height: auto;
+            }
+
+            .img-article-top-banner {
+                width: 345px;
+                height: auto;
+                border-radius: 2px;
+            }
+
+            .iklan {
+                width: 200px;
+                height: auto;
+            }
+
+            .navbar-custom-menu > ul > li {
+                width: 85px;
+                height: 60px;
+                position: relative;
+            }
+
+            .img-article-thumbnail {
+                width: 320px;
+                height: auto;
+                border-radius: 2px 2px 0 0;
+            }
+
+        }
+
+        .box-widget {
+            border: 1px solid #f4f4f4;
+        }
+
+        .box-footer {
+            color: #6a6a6a;
+        }
+
+        .sidebar-form {
+            border-radius: 3px;
+            border: 1px solid rgb(255,183,107)d;
+            margin: 10px 10px;
+        }
+
+        .sidebar-form input[type="text"] {
+            color: #999;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 2px;
+        }
+
+        .sidebar-form input[type="text"], .sidebar-form .btn {
+            box-shadow: none;
+            background-color: #fff;
+            border: 1px solid transparent;
+            height: 35px;
+        }
+
+        .sidebar-form .btn {
+            color: #000;
+            border-top-left-radius: 0;
+            border-top-right-radius: 2px;
+            border-bottom-right-radius: 2px;
+            border-bottom-left-radius: 0;
+            box-shadow: none;
+            background-color: #fff;
+            border: 1px solid transparent;
+            height: 35px;
+        }
+
+        input[type="text"]::placeholder {
+            color: #eaeaea;
+        }
+
+        .iklan {
+            width: 300px;
+            height: auto;
+        }
+        
+        @-webkit-keyframes blinker {
+          from {opacity: 1.0;}
+          to {opacity: 0.0;}
+        }
+        .blink{
+            text-decoration: blink;
+            -webkit-animation-name: blinker;
+            -webkit-animation-duration: 0.6s;
+            -webkit-animation-iteration-count:infinite;
+            -webkit-animation-timing-function:ease-in-out;
+            -webkit-animation-direction: alternate;
+        }
+
+    </style>
+    
+</head>
+
+<link class="img-circle" href="<?=base_url() . $logoDir;?>" rel='icon' type='image/x-icon'/>
+
+<body class="layout-top-nav fixed" onload="">
+
+    <header class="main-header">
+
+        <nav class="navbar navbar-static-top">
+
+            <div class="container">
+
+                <div class="navbar-custom-menu pull-left">
+
+                    <form action="<?=site_url('home/search');?>" method="get" class="sidebar-form">
+
+                        <div class="input-group">
+
+                            <input type="text" name="key" class="form-control" placeholder="Search...">
+                            
+                            <span class="input-group-btn">
+                                
+                                <button type="submit" name="search" class="btn btn-flat">
+                                    <i class="fa fa-search" style="color: #999"></i>
+                                </button>
+                            
+                            </span>
+
+                        </div>
+                    </form>
+
+                </div>
+                <!-- /.navbar -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </nav>
+
+    </header>
+
+<!--
+    This is a header
+    End of file header-app.php
+    Location: ./application/views/template/header-app.php
+-->

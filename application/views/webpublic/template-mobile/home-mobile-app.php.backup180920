@@ -1,0 +1,169 @@
+	
+
+	<div class="content-wrapper">
+
+    	<div class="container">
+
+            <div class="row">
+
+                <div class="col-xs-12">
+
+                    <?php 
+
+                    if (! empty($topBanner['franchise_id'])) {
+
+                        echo '<a href="' . site_url('franchises/' . $topBanner['slug']) . '">';
+
+                    }
+
+                    ?>
+
+                    <img src="<?=base_url() . substr($topBannerImgPath, 2) . $topBanner['image_source'] . '?' . date('YmdHis');?>" id="top-banner">
+
+                    <?php echo '</a>'; ?>
+
+                </div>
+
+            </div>
+
+    		<div class="row">
+
+    			<div class="col-xs-12">
+
+                    <a href="<?=site_url('home/about_us');?>">
+
+                    <div class="box box-widget">
+                        
+                        <div class="box-header with-border">
+    				        
+                            Tentang Kami
+
+                        </div>
+
+                        <div class="box-body">
+                    
+                    <h6><p>
+                        <?php 
+                        if (strlen($aboutUs['content']) >= 260) {
+
+                            echo substr($aboutUs['content'], 0, 260) . '..';
+
+                        } else {
+
+                            echo $aboutUs['content'];
+
+                        } ?>    
+                    </p></h6>
+
+                        </div>
+
+                    </div>
+
+                    </a>
+
+    			</div>
+
+    		</div>
+
+			<div class="row">
+
+                <div class="col-xs-12">
+
+                    <div class="box box-widget">
+                        
+                        <div class="box-header with-border">
+
+                            Daftar Franchise
+
+                        </div>
+
+                        <div class="box-body">
+
+            	        	<?php
+
+            	        	foreach ($franchiseRand as $row) :
+
+            	        	?>
+
+            	        	<a href="<?=site_url('franchises/' . $row->slug);?>">
+
+            	        		<div class="col-sm-3 col-xs-6" style="padding: 5px">
+
+            		        		<img src="<?php echo $franchiseThumbnailImgPath . $row->thumbnail . '?' . date('YmdHis');?>" alt="Franchise thumbnail" class="img-franchise-thumbnail">
+
+            		        		<h5>
+            		                    <?php echo $row->franchise_name;?>
+            		                </h5>
+
+            		            </div>
+
+            	        	</a>
+
+            	        	<?php
+
+            	        	endforeach; ?>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-sm-6 col-xs-12" style="margin-bottom: 10px;">
+        				
+        			<div class="embed-responsive embed-responsive-16by9">
+  							
+  						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+						
+					</div>
+
+        		</div>
+
+        		<div class="col-sm-6 col-xs-12">
+
+
+                    <div class="box box-widget">
+                        
+                        <div class="box-header with-border">
+
+        			     Update Artikel
+
+                         </div>
+
+                         <div class="box-body">
+
+        			<?php
+
+        			echo '<ul>';
+
+        			foreach ($article as $row) :
+
+        				echo '<li style="text-align: justify;"><i><u><a href="'. site_url('news/' . $row->slug . '/') . '"><h5 style="margin: 5px 0">' . $row->title . '</h5></a></u></i></li>';
+
+        			endforeach;
+
+        			echo '</ul>';
+
+        			?>
+
+                        </div>
+
+                        <div class="box-footer">
+
+                            <a href="<?=site_url('news');?>" class="btn btn-xs btn-warning"><i>Lihat semua</i></a>
+                        
+                        </div>
+
+                    </div>
+
+        		</div>
+
+        	</div>
+
+		</div>
+
+	</div>

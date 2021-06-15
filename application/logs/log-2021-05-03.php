@@ -1,0 +1,5 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2021-05-03 10:04:51 --> Severity: error --> Exception: Too few arguments to function Franchise::update_status(), 0 passed in /Applications/XAMPP/xamppfiles/htdocs/duniafranchise/system/core/CodeIgniter.php on line 532 and exactly 1 expected /Applications/XAMPP/xamppfiles/htdocs/duniafranchise/application/controllers/Franchise.php 721
+ERROR - 2021-05-03 10:05:00 --> Severity: error --> Exception: Too few arguments to function Franchise::update_status(), 0 passed in /Applications/XAMPP/xamppfiles/htdocs/duniafranchise/system/core/CodeIgniter.php on line 532 and exactly 1 expected /Applications/XAMPP/xamppfiles/htdocs/duniafranchise/application/controllers/Franchise.php 721
+ERROR - 2021-05-03 10:05:54 --> Severity: error --> Exception: Too few arguments to function Franchise::update_status(), 0 passed in /Applications/XAMPP/xamppfiles/htdocs/duniafranchise/system/core/CodeIgniter.php on line 532 and exactly 1 expected /Applications/XAMPP/xamppfiles/htdocs/duniafranchise/application/controllers/Franchise.php 721

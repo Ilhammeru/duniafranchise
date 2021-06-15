@@ -1,0 +1,128 @@
+	
+.main-footer {
+  	border-top: 1px solid #abb1bc !important;
+}
+@media (max-width: 991px) {	
+	.content-header > .breadcrumb {
+    	background: #abb1bc !important;
+  	}
+}
+.control-sidebar-light,
+.control-sidebar-light + .control-sidebar-bg {
+	border-left: 1px solid #abb1bc !important;
+}
+.control-sidebar-light .nav-tabs.control-sidebar-tabs {
+	border-bottom: #abb1bc !important;
+}
+.control-sidebar-light .nav-tabs.control-sidebar-tabs > li > a,
+.control-sidebar-light .nav-tabs.control-sidebar-tabs > li > a:hover,
+.control-sidebar-light .nav-tabs.control-sidebar-tabs > li > a:focus {
+	border-left-color: #abb1bc !important;
+	border-bottom-color: #abb1bc !important;
+}
+/*
+ * Component: Form
+ * ---------------
+ */
+.form-control {
+	border-color: #abb1bc !important;
+}
+.form-control:focus {
+  border-color: #3c8dbc !important;
+  box-shadow: none;
+}
+/* Input group */
+.input-group .input-group-addon {
+	border-color: #abb1bc !important;
+}
+/*
+ * Component: Box
+ * --------------
+ */
+.todo-list > li.done .label {
+	background: #abb1bc !important !important;
+}
+.timeline > li > .fa,
+.timeline > li > .glyphicon,
+.timeline > li > .ion {
+	background: #abb1bc !important;
+}
+/*
+ * Page: Profile
+ * -------------
+ */
+.post {
+	border-bottom: 1px solid #abb1bc !important;
+}
+.select2-container--default .select2-selection--single,
+.select2-selection .select2-selection--single {
+  	border: 1px solid #abb1bc !important;
+}
+.blink-1 {
+  animation: blinker 1s linear infinite !important;
+}
+.blink-3 {
+  animation: blinker 3s linear infinite !important;
+}
+.text-red {
+	color: #f00 !important;
+}
+hr {
+	border-color: #abb1bc !important;
+}
+table, td, th{
+	border-color: #abb1bc !important;
+}
+table.dataTable tbody tr.selected a,
+table.dataTable tbody th.selected a,
+table.dataTable tbody td.selected a {
+  color: #000 !important;
+}
+@media print{
+	hr {
+		border-color: black !important;
+	}
+	table, td, th{
+		border-color:  black !important;
+	}
+	html, body {
+        overflow: hidden;
+    }
+	th{
+         padding: 1px !important;
+    }
+	td {
+    	padding: 2px !important;
+    }
+    .table-bordered tr td, .table-bordered tr th{
+        border-color: #000 !important;
+    }
+}
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+body {
+	background-color: #ecf0f5;
+    overflow-y: auto !important;
+}
+
+table.dataTable.fixedHeader-floating,
+table.dataTable.fixedHeader-locked {
+    background-color: white;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    width:100px!important;
+}
+.dt-buttons {
+  margin-bottom: 10px!important;
+}
+
+.redClass {
+  background-color: #FFC1B0;
+}
+.greenClass {
+  background-color: #B8FFB0;
+}
+
