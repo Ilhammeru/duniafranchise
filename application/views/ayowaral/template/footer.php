@@ -11,10 +11,10 @@
                             <a class="nav-link nav-link-footer" href="<?= base_url('ayowaralaba/home'); ?>">Beranda</a>
                         </li>
                         <li class="nav-item nav-item-footer">
-                            <a class="nav-link nav-link-footer" href="<?= base_url('ayowaralaba/franchise');?>">daftar franchise</a>
+                            <a class="nav-link nav-link-footer" href="<?= base_url('ayowaralaba/franchise'); ?>">daftar franchise</a>
                         </li>
                         <li class="nav-item nav-item-footer">
-                            <a class="nav-link nav-link-footer" href="<?= base_url('ayowaralaba/news');?>">berita / news</a>
+                            <a class="nav-link nav-link-footer" href="<?= base_url('ayowaralaba/news'); ?>">berita / news</a>
                         </li>
                     </ul>
                 </div>
@@ -68,6 +68,44 @@
             var page = '<?= base_url(); ?>' + url;
             window.location = page;
         }
+    }
+
+    function navigatePage(target) {
+        $('.main-nav').removeClass('active-nav');
+        $('li[data-nav="' + target + '"]').addClass('active-nav');
+
+        var page = '<?= site_url(); ?>/ayowaralaba/' + target;
+        window.location = page;
+    }
+
+    function search_franchise() {
+        var val = $('.search-field').val();
+
+        $.ajax({
+            type: 'post',
+            data: {
+                keyword: val
+            },
+            url: '<?= site_url('ayowaralaba/franchise/search_franchise'); ?>',
+            dataType: 'text',
+            success: function(response) {
+                var activePage = $('.active-nav').attr('data-nav');
+
+                $('.div-main-content').hide();
+
+                $('.div-search').html(response);
+                $('.panel-navigation').hide()
+                $('.card-detail-franchise').hide();
+                $('.row-detail-description').hide();
+                $('.div-back-btn').show()
+                $('.panel-search').show()
+                $('.center-banner-page-news').show()
+
+                $('.pagination-franchise').html(response.pagination)
+
+                $('.div-search').show();
+            }
+        })
     }
 </script>
 </body>

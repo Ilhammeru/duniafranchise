@@ -50,7 +50,7 @@ class Franchise extends CI_Controller {
         $this->template_lib->ayo_footer($attr);
     }
 
-    public function get_franchise($sorting, $page) {
+    public function get_franchise($sorting, $page, $search = '') {
         $perPage = 24;
         if ($page != 0) {
             $page = ($page - 1) * $perPage;
@@ -79,13 +79,21 @@ class Franchise extends CI_Controller {
                 break;
         }
 
+        if ($search != '') {
+            $search = " AND franchise_name LIKE '%$search%'";
+        } else {
+            $search = '';
+        }
+
         $all = $this->db->query("SELECT id 
                                         FROM franchise
-                                        WHERE status = 1")->num_rows();
+                                        WHERE status = 1
+                                        $search")->num_rows();
 
         $query = $this->db->query("SELECT id, franchise_name, text, thumbnail
                                         FROM franchise
                                         WHERE status = 1
+                                        $search
                                         $where
                                         LIMIT $perPage OFFSET $page");
 
@@ -93,7 +101,7 @@ class Franchise extends CI_Controller {
             foreach ($query->result() as $row) {
                 $fName[]    = $row->franchise_name;
                 $fId[]      = $row->id;
-                $fImg[]     = 'https://duniafranchise/images/franchise/thumbnail/' . $row->thumbnail;
+                $fImg[]     = 'https://duniafranchise.com/images/franchise/thumbnail/' . $row->thumbnail;
                 $replace    = $row->text;
                 $sub        = substr($replace, 90, strlen($replace));
                 $fix        = str_replace($sub, '...', $replace);
@@ -134,7 +142,11 @@ class Franchise extends CI_Controller {
         $data['fId']            = $fId;
         $data['fImg']           = $fImg;
 
-        echo json_encode($data);
+        if ($search == '') {
+            echo json_encode($data);
+        } else {
+            return $data;
+        }
     }
     // end of function get_franchise
 
@@ -142,6 +154,7 @@ class Franchise extends CI_Controller {
     * @param id
     */
     public function detail_brand($id) {
+        $base = 'https://duniafranchise.com/ayowaral-images/';
 
         $query = $this->db->query("SELECT franchise_name, slug, thumbnail, id, invesment, text, description
                                         FROM franchise
@@ -152,14 +165,13 @@ class Franchise extends CI_Controller {
         if ($query->num_rows() > 0) {
 
             foreach ($query->result() as $row) {
-                $data['fName']    = $row->franchise_name;
-                $data['fSlug']    = $row->slug;
-                $data['fImg']     = 'https://duniafranchise.com/images/franchise/thumbnail/' . $row->thumbnail;
-                $data['fText']    = $row->text;
-                $data['fId']      = $row->id;
-                $data['fInvest']  = $row->invesment;
-                $data['desc']     = $row->description;
-                $target_id = $row->id;
+                $data['fName']      = $row->franchise_name;
+                $data['fSlug']      = $row->slug;
+                $data['fImg']       = 'https://duniafranchise.com/images/franchise/thumbnail/' . $row->thumbnail;
+                $data['fText']      = $row->text;
+                $data['fId']        = $row->id;
+                $data['fInvest']    = $row->invesment;
+                $target_id          = $row->id;
             }
 
             $queryPhone = $this->db->query("SELECT phone, title 
@@ -175,6 +187,10 @@ class Franchise extends CI_Controller {
                 $data['phone'] = $ph;
                 $data['area']  = $ar;
             }
+
+            //desc
+            $desc = $this->get_videos($target_id);
+            $data['desc']   = $desc;
         } else {
             $err = 'brand-null';
 
@@ -188,7 +204,7 @@ class Franchise extends CI_Controller {
 
         if ($topBanner->num_rows() > 0) {
             foreach ($topBanner->result() as $tp) {
-                $topImg[] = base_url('ayowaral-images/topbanner/') . $tp->image_banner;
+                $topImg[] = $base . 'topbanner/' . $tp->image_banner;
                 $topId[] = $tp->franchise_id;
             }
         }
@@ -205,7 +221,7 @@ class Franchise extends CI_Controller {
 
         if ($center->num_rows() > 0) {
             foreach ($center->result() as $c) {
-                $centerImg[]    = base_url('ayowaral-images/centerbanner/') . $c->image_banner;
+                $centerImg[]    = $base . 'centerbanner/' . $c->image_banner;
                 $centerId[]     = $c->franchise_id;
             }
         }
@@ -230,7 +246,7 @@ class Franchise extends CI_Controller {
     {
         $id = $_POST['id']; // detail brand to view really detail brand
 
-        $query = $this->db->query("SELECT franchise_name, slug, thumbnail, id, invesment, text, description
+        $query = $this->db->query("SELECT franchise_name, slug, thumbnail, id, invesment, text, description, chat_script_ayo
                                         FROM franchise
                                         WHERE status = 1
                                         AND id = $id");
@@ -239,16 +255,17 @@ class Franchise extends CI_Controller {
         if ($query->num_rows() > 0) {
 
             foreach ($query->result() as $row) {
-                $data['fName']    = $row->franchise_name;
-                $data['fSlug']    = $row->slug;
-                $data['fImg']     = base_url('images/franchise/thumbnail/') . $row->thumbnail;
-                $data['fText']    = $row->text;
-                $data['fId']      = $row->id;
-                $data['fInvest']  = $row->invesment;
-                $target_id = $row->id;
+                $data['fName']      = $row->franchise_name;
+                $data['fSlug']      = $row->slug;
+                $data['fImg']       = 'https://duniafranchise.com/images/franchise/thumbnail/' . $row->thumbnail;
+                $data['fText']      = $row->text;
+                $data['fId']        = $row->id;
+                $data['fInvest']    = $row->invesment;
+                $data['chat_script']    = $row->chat_script_ayo;
+                $target_id          = $row->id;
             }
 
-            $queryPhone = $this->db->query("SELECT phone, title 
+            $queryPhone = $this->db->query("SELECT phone, title
                                                     FROM franchise_phone 
                                                     WHERE franchise_id = $target_id");
 
@@ -263,7 +280,7 @@ class Franchise extends CI_Controller {
             }
 
             // get description 
-            $desc = $this->get_videos();
+            $desc = $this->get_videos($target_id);
             $data['desc'] = $desc;
         } else {
             $err = 'brand-null';
@@ -273,12 +290,12 @@ class Franchise extends CI_Controller {
         echo json_encode($data);
     }
 
-    public function get_videos()
+    public function get_videos($id)
     {
 
         $query = $this->db->query("SELECT description, videos
 								FROM franchise
-								WHERE id = " . $this->franchiseId)->row_array();
+								WHERE id = $id")->row_array();
 
         $videos = $query['videos'];
 
@@ -324,5 +341,56 @@ class Franchise extends CI_Controller {
         return $html;
     }
 	// End of function replaced
+
+    /**
+    * @param post keyword
+    */
+    public function search_franchise() {
+        $keyword = $_POST['keyword'];
+
+        $result = $this->get_franchise(1, 0, $keyword);
+
+        //load view
+        $base = 'https://duniafranchise.com/ayowaral-images/';
+        // top banner 
+        $topBanner = $this->db->query("SELECT image_banner, franchise_id
+                                            FROM wm_topbanner
+                                            WHERE is_active = 1");
+
+        if ($topBanner->num_rows() > 0) {
+            foreach ($topBanner->result() as $tp) {
+                $topImg[] = $base . 'topbanner/' . $tp->image_banner;
+                $topId[] = $tp->franchise_id;
+            }
+        }
+
+        $firstTopImg = $topImg[0];
+        // end top banner
+
+        //center banner
+        $center = $this->db->query("SELECT image_banner, franchise_id
+                                        FROM wm_centerbanner
+                                        WHERE is_active = 1
+                                        ORDER BY RAND()
+                                        LIMIT 2");
+
+        if ($center->num_rows() > 0) {
+            foreach ($center->result() as $c) {
+                $centerImg[]    = $base . 'centerbanner/' . $c->image_banner;
+                $centerId[]     = $c->franchise_id;
+            }
+        }
+        // end center banner
+
+        $attr['title']      = 'Daftar franchise';
+        $attr['centerImg']  = $centerImg;
+        $attr['centerId']   = $centerId;
+        $attr['result']     = $result;
+
+        // $this->template_lib->ayo_top_banner($attr, 'ayowaral/home/topBanner');
+        $this->template_lib->ayo_main_content($attr, 'ayowaral/franchise/searchResult');
+        $this->template_lib->ayo_main_content($attr, 'ayowaral/franchise/rightContent');
+    }
+    // end of function search_franchise
 }
 ?>

@@ -1,116 +1,119 @@
 <!-- row start left banner - right banner -->
-<div class="row" style="padding: 0 1em;">
-    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" style="margin-top: 0.8em; padding:0;">
-        <!-- button -->
-        <button class="btn-member btn-member-banner-news">member banner</button>
-        <!-- end button -->
+<div class="div-search" style="display: none;"></div>
 
-        <div>
-            <?php for ($pr = 0; $pr < count($premImg); $pr++) : ?>
-                <img class="img-left lazyload" onclick="navigate(<?= $premId[$pr]; ?>, 'ayowaralaba/franchise/detail_brand/<?= $premId[$pr]; ?>')" data-src="<?= $premImg[$pr]; ?>" alt="">
-            <?php endfor; ?>
-        </div>
+<div class="div-main-content">
+    <div class="row" style="padding: 0 1em;">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" style="margin-top: 0.8em; padding:0;">
+            <!-- button -->
+            <button class="btn-member btn-member-banner-news">member banner</button>
+            <!-- end button -->
 
-        <!-- button -->
-        <button class="btn-member">article</button>
-        <!-- end button -->
+            <div>
+                <?php for ($pr = 0; $pr < count($premImg); $pr++) : ?>
+                    <img class="img-left lazyload" onclick="navigate(<?= $premId[$pr]; ?>, 'ayowaralaba/franchise/detail_brand/<?= $premId[$pr]; ?>')" data-src="<?= $premImg[$pr]; ?>" alt="">
+                <?php endfor; ?>
+            </div>
 
-        <!-- article shortcut -->
-        <div class="card card-article-shortcut">
-            <div class="card-body">
-                <ul>
-                    <?php for ($art = 0; $art < count($artTitle); $art++) : ?>
-                        <li><?= $artTitle[$art]; ?></li>
-                    <?php endfor; ?>
-                </ul>
+            <!-- button -->
+            <button class="btn-member">article</button>
+            <!-- end button -->
+
+            <!-- article shortcut -->
+            <div class="card card-article-shortcut">
+                <div class="card-body">
+                    <ul>
+                        <?php for ($art = 0; $art < count($artTitle); $art++) : ?>
+                            <li><?= $artTitle[$art]; ?></li>
+                        <?php endfor; ?>
+                    </ul>
+                </div>
+            </div>
+            <!-- end article shortcut -->
+
+            <!-- button -->
+            <button class="btn-member">member banner</button>
+            <!-- end button -->
+
+            <div>
+                <?php for ($lf = 0; $lf < count($leftImg); $lf++) : ?>
+                    <img class="img-left lazyload" data-src="<?= $leftImg[$lf]; ?>" alt="" onclick="navigate(<?= $leftId[$lf]; ?>, 'ayowaralaba/franchise/detail_brand/<?= $leftId[$lf]; ?>')">
+                <?php endfor; ?>
             </div>
         </div>
-        <!-- end article shortcut -->
 
-        <!-- button -->
-        <button class="btn-member">member banner</button>
-        <!-- end button -->
+        <div class="<?= $col; ?>" id="rekap-news" style="margin-top: 0.8em;">
+            <!-- button -->
+            <button class="btn-member btn-member-news">berita / artikel</button>
+            <!-- end button -->
 
-        <div>
-            <?php for ($lf = 0; $lf < count($leftImg); $lf++) : ?>
-                <img class="img-left lazyload" data-src="<?= $leftImg[$lf]; ?>" alt="" onclick="navigate(<?= $leftId[$lf]; ?>, 'ayowaralaba/franchise/detail_brand/<?= $leftId[$lf]; ?>')">
-            <?php endfor; ?>
-        </div>
-    </div>
-
-    <div class="<?= $col; ?>" id="rekap-news" style="margin-top: 0.8em;">
-        <!-- button -->
-        <button class="btn-member btn-member-news">berita / artikel</button>
-        <!-- end button -->
-
-        <!-- panel navigation -->
-        <div class="card card-navigation-news">
-            <div class="card-body">
-                <div>
-                    <div class="div-1" onclick="navigate('ayowaralaba/home')">
-                        <i class="fa fa-home"></i>
-                        <span>Kembali ke Beranda</span>
-                    </div>
-                    <div class="div-2" onclick="navigate('ayowaralaba/news')">
-                        <span>Semua Berita</span>
-                        <i class="fa fa-bars"></i>
+            <!-- panel navigation -->
+            <div class="card card-navigation-news">
+                <div class="card-body">
+                    <div>
+                        <div class="div-1" onclick="navigate('ayowaralaba/home')">
+                            <i class="fa fa-home"></i>
+                            <span>Kembali ke Beranda</span>
+                        </div>
+                        <div class="div-2" onclick="navigate('ayowaralaba/news')">
+                            <span>Semua Berita</span>
+                            <i class="fa fa-bars"></i>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- end panel navigation -->
+            <!-- end panel navigation -->
 
-        <div class="row news-target"></div>
-        <div class="pagination-news"></div>
+            <div class="row news-target"></div>
+            <div class="pagination-news"></div>
 
-        <!-- detail news target -->
-        <div class="card detail-news">
-            <div class="card-body">
-                <h4 class="detail-news-title"></h4>
+            <!-- detail news target -->
+            <div class="card detail-news">
+                <div class="card-body">
+                    <h4 class="detail-news-title"></h4>
 
-                <div class="detail-activity-news">
-                    <div id="calendar">
-                        <i class="fa fa-calendar"></i>
-                        <span class="target-calendar-news"></span>
+                    <div class="detail-activity-news">
+                        <div id="calendar">
+                            <i class="fa fa-calendar"></i>
+                            <span class="target-calendar-news"></span>
+                        </div>
+                        <div id="user">
+                            <i class="fa fa-user"></i>
+                            <span class="target-editor-news">Ilham meru gumilang</span>
+                        </div>
+                        <div id="bookmarks">
+                            <i class="fa fa-bookmark-o"></i>
+                            <span class="target-bookmark-news">Usaha kecil menengah</span>
+                        </div>
+                        <div id="visit-times">
+                            <i class="fa fa-eye"></i>
+                            <span class="target-visitor-news">Dilihat 200 kali</span>
+                        </div>
                     </div>
-                    <div id="user">
-                        <i class="fa fa-user"></i>
-                        <span class="target-editor-news">Ilham meru gumilang</span>
-                    </div>
-                    <div id="bookmarks">
-                        <i class="fa fa-bookmark-o"></i>
-                        <span class="target-bookmark-news">Usaha kecil menengah</span>
-                    </div>
-                    <div id="visit-times">
-                        <i class="fa fa-eye"></i>
-                        <span class="target-visitor-news">Dilihat 200 kali</span>
-                    </div>
-                </div>
 
-                <div class="target-detail-news">
+                    <div class="target-detail-news">
 
-                </div>
-            </div>
-        </div>
-        <!-- end detail news target -->
-
-        <!-- panel navigation -->
-        <div class="card card-navigation-news">
-            <div class="card-body">
-                <div>
-                    <div class="div-1" onclick="navigate('ayowaralaba/home')">
-                        <i class="fa fa-home"></i>
-                        <span>Kembali ke Beranda</span>
-                    </div>
-                    <div class="div-2" onclick="navigate('ayowaralaba/news')">
-                        <span>Semua Berita</span>
-                        <i class="fa fa-bars"></i>
                     </div>
                 </div>
             </div>
+            <!-- end detail news target -->
+
+            <!-- panel navigation -->
+            <div class="card card-navigation-news">
+                <div class="card-body">
+                    <div>
+                        <div class="div-1" onclick="navigate('ayowaralaba/home')">
+                            <i class="fa fa-home"></i>
+                            <span>Kembali ke Beranda</span>
+                        </div>
+                        <div class="div-2" onclick="navigate('ayowaralaba/news')">
+                            <span>Semua Berita</span>
+                            <i class="fa fa-bars"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end panel navigation -->
         </div>
-        <!-- end panel navigation -->
-    </div>
 
     <script>
         $(document).ready(() => {

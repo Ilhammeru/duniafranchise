@@ -689,6 +689,11 @@
                 height: 5em !important;
             }
 
+            .search-field:focus {
+                border: none;
+                box-shadow: none;
+            }
+
             .page-news-title {
                 color: #d02127;
                 cursor: pointer;
@@ -825,14 +830,14 @@
             </a>
 
             <ul class="navbar-nav navbar-item">
-                <li class="nav-item active">
-                    <a class="nav-link" href="<?= site_url('ayowaralaba/home'); ?>">Beranda <span class="sr-only">(current)</span></a>
+                <li class="nav-item main-nav active-nav" data-nav="home" onclick="navigatePage('home')">
+                    <a class="nav-link">Beranda <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('ayowaralaba/franchise'); ?>">Daftar franchise</a>
+                <li class="nav-item main-nav" data-nav="franchise" onclick="navigatePage('franchise')">
+                    <a class="nav-link">Daftar franchise</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('ayowaralaba/news'); ?>" tabindex="-1" aria-disabled="true">Berita</a>
+                <li class="nav-item main-nav" data-nav="news" onclick="navigatePage('news')">
+                    <a class="nav-link">Berita</a>
                 </li>
             </ul>
         </div>
@@ -843,7 +848,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-bars"></i></span>
                     </div>
-                    <input type="text" class="form-control search-field" placeholder="Pencarian" aria-label="Username" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control search-field" placeholder="Pencarian" aria-label="Username" aria-describedby="basic-addon1" onchange="search_franchise()">
                     <div class="input-group-append">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
                     </div>
